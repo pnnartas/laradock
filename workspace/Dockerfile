@@ -360,6 +360,13 @@ RUN sed -i "s/xdebug.remote_autostart=0/xdebug.remote_autostart=1/" /etc/php/${L
     sed -i "s/xdebug.remote_enable=0/xdebug.remote_enable=1/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
     sed -i "s/xdebug.cli_color=0/xdebug.cli_color=1/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini
 
+RUN apt-get update -y && \
+apt-get install -y libmcrypt-dev && \
+pecl install mcrypt-1.0.2
+echo "extension=mcrypt.so" >> /etc/php/${LARADOCK_PHP_VERSION}/cli/php.ini && \
+#sed -i 's/^;//g' /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/20-mcrpyt.ini
+# bu echo ile artık docker yeniden açılınca da mcrypt kurulu olacak
+
 ###########################################################################
 # pcov:
 ###########################################################################

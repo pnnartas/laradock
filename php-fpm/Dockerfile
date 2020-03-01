@@ -32,6 +32,11 @@ RUN if [ ${CHANGE_SOURCE} = true ]; then \
     sed -i 's/security-cdn.debian.org/mirrors.tuna.tsinghua.edu.cn/' /etc/apt/sources.list \
 ;fi
 
+
+RUN apt-get update -y && \
+apt-get install -y libmcrypt-dev && \
+pecl install mcrypt-1.0.2 && \
+docker-php-ext-enable mcrypt
 # always run apt update when start and after add new source list, then clean up at end.
 RUN set -xe; \
     apt-get update -yqq && \
